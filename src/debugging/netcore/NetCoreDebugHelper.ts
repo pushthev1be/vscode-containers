@@ -116,7 +116,7 @@ export class NetCoreDebugHelper implements DebugHelper {
             type: 'coreclr',
             request: 'launch',
             program: debugConfiguration.program || 'dotnet',
-            args: debugConfiguration.args || [additionalProbingPathsArgs, containerAppOutput].join(' '),
+            args: debugConfiguration.args || [...additionalProbingPathsArgs, containerAppOutput], // We don't need to quote things because VsDbg handles things well internally
             cwd: debugConfiguration.cwd || platformOS === 'Windows' ? 'C:\\app' : '/app',
             dockerOptions: {
                 containerName: containerName,
@@ -259,7 +259,7 @@ export class NetCoreDebugHelper implements DebugHelper {
         await exportCertificateIfNecessary(debugConfiguration.netCore.appProject, certificateExportPath);
     }
 
-    private static getAdditionalProbingPathsArgs(platformOS: PlatformOS): string {
+    private static getAdditionalProbingPathsArgs(platformOS: PlatformOS): string[] {
         const additionalProbingPaths = platformOS === 'Windows'
             ? [
                 'C:\\.nuget\\packages',
@@ -269,7 +269,8 @@ export class NetCoreDebugHelper implements DebugHelper {
                 '/root/.nuget/packages',
                 '/root/.nuget/fallbackpackages'
             ];
-        return additionalProbingPaths.map(probingPath => `--additionalProbingPath ${probingPath}`).join(' ');
+
+        return additionalProbingPaths.map(path => ['--additionalProbingPath', path]).flat();
     }
 
     private async copyDebuggerToContainer(context: IActionContext, containerName: string, containerDebuggerDirectory: string, containerOS: ContainerOS): Promise<void> {
