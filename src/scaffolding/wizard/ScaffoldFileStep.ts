@@ -117,6 +117,7 @@ export class ScaffoldFileStep<TWizardContext extends ScaffoldingWizardContext> e
             case 'Dockerfile':
                 return path.join(wizardContext.dockerfileDirectory, this.fileType);
             case '.dockerignore':
+            case '.containerignore':
                 return path.join(wizardContext.dockerBuildContext, this.fileType);
             default:
                 // All other files go to the root

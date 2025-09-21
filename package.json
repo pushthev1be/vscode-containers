@@ -1548,21 +1548,26 @@
             {
                 "id": "dockerfile",
                 "aliases": [
-                    "Dockerfile"
+                    "Dockerfile",
+                    "Containerfile"
                 ],
                 "filenamePatterns": [
                     "*.dockerfile",
                     "Dockerfile",
-                    "Dockerfile.*"
+                    "Dockerfile.*",
+                    "Containerfile",
+                    "Containerfile.*"
                 ]
             },
             {
                 "id": "ignore",
                 "filenames": [
-                    ".dockerignore"
+                    ".dockerignore",
+                    ".containerignore"
                 ],
                 "filenamePatterns": [
-                    "*.dockerignore"
+                    "*.dockerignore",
+                    "*.containerignore"
                 ]
             }
         ],

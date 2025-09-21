@@ -29,6 +29,7 @@ export async function scaffold(wizardContext: Partial<ScaffoldingWizardContext>,
 
     const executeSteps: AzureWizardExecuteStep<ScaffoldingWizardContext>[] = [
         new ScaffoldFileStep('.dockerignore', 'ask', 100),
+        new ScaffoldFileStep('.containerignore', 'ask', 110),
         new ScaffoldFileStep('Dockerfile', 'ask', 200),
         new OpenDockerfileStep(),
     ];
